@@ -171,10 +171,10 @@ EOF
 
 # Set up RDS dynamic credentials
 vault secrets enable database
-vault write database/config/postgres \
-  plugin_name="postgresql-database-plugin" \
+vault write database/config/mysql \
+  plugin_name="mysql-database-plugin" \
   allowed_roles="lambda-*" \
-  connection_url="postgres://{{username}}:{{password}}@${tpl_rds_endpoint}/lambdadb" \
+  connection_url="mysql://{{username}}:{{password}}@${tpl_rds_endpoint}/lambdadb" \
   username="vaultadmin" \
   password="${tpl_rds_admin_password}"
 
@@ -184,7 +184,7 @@ vault write database/config/postgres \
 # inherit from that role.
 # @see https://learn.hashicorp.com/tutorials/vault/database-secrets
 vault write database/roles/lambda-function \
-  db_name="postgres" \
+  db_name="mysql" \
   default_ttl="1h" max_ttl="24h" \
   creation_statements=- << EOF
 CREATE ROLE "{{name}}" WITH LOGIN ENCRYPTED PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
@@ -192,7 +192,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO "{{name}}";
 EOF
 
 # Install the database CLI
-sudo apt install postgresql-client -y
+sudo apt install mysql-client -y
 
 logger "Complete"
 

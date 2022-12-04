@@ -1,7 +1,7 @@
 output "info" {
   value = <<EOF
 
-Postgres database address
+MySQL database address
     ${aws_db_instance.main.address}
 
 Elastic Container Registry (ECR) repository address

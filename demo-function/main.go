@@ -37,8 +37,8 @@ func (m Payload) String() string {
 func HandleRequest(ctx context.Context, payload Payload) error {
 	logger := log.New(os.Stderr, fmt.Sprintf("[%s] ", functionName), 0)
 	logger.Println("Received:", payload.String())
-	logger.Println("Reading file /tmp/vault_secret.json")
 	secretRaw, err := ioutil.ReadFile("/tmp/vault_secret.json")
+	logger.Println("Reading file /tmp/vault_secret.json")
 	if err != nil {
 		return fmt.Errorf("error reading file: %w", err)
 	}
@@ -67,8 +67,8 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	}
 
 	// read users from database
-	connStr := fmt.Sprintf("postgres://%s:%s@%s/lambdadb?sslmode=disable", secret.Data["username"], secret.Data["password"], dbURL)
-	db, err := sql.Open("postgres", connStr)
+	connStr := fmt.Sprintf("mysql://%s:%s@%s/lambdadb", secret.Data["username"], secret.Data["password"], dbURL)
+	db, err := sql.Open("mysql", connStr)
 	if err != nil {
 		return err
 	}

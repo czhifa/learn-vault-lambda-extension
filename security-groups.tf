@@ -52,17 +52,17 @@ resource "aws_security_group" "vault-server" {
 
 resource "aws_security_group" "rds" {
   name        = "${var.environment_name}-rds-sg"
-  description = "Postgres traffic"
+  description = "MySQL traffic"
   vpc_id      = aws_default_vpc.default.id
 
   tags = {
     Name = var.environment_name
   }
 
-  # Postgres traffic
+  # MySQL traffic
   ingress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 3309
+    to_port     = 3309
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

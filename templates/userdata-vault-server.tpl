@@ -184,7 +184,7 @@ vault write database/config/mysql \
 # inherit from that role.
 # @see https://learn.hashicorp.com/tutorials/vault/database-secrets
 vault write database/roles/lambda-function \
-  db_name="mysql" \
+  db_name=mysql \
   default_ttl="1h" max_ttl="24h" \
   creation_statements=- << EOF
 CREATE USER '{{name}}'@'%' INDENTIFIED BY '{{PASSWORD}}';

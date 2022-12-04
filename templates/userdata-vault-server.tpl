@@ -187,8 +187,8 @@ vault write database/roles/lambda-function \
   db_name="mysql" \
   default_ttl="1h" max_ttl="24h" \
   creation_statements=- << EOF
-CREATE ROLE "{{name}}" WITH LOGIN ENCRYPTED PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO "{{name}}";
+CREATE ROLE "{{name}}";
+GRANT ALL PRIVILEGES ON *.* TO '{{name}}'@'%';
 EOF
 
 # Install the database CLI

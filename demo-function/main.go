@@ -67,9 +67,12 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	}
 
 	// read users from database
-	fmt.Printf("username: %v", secret.Data["username"])
-	fmt.Printf("password: %v", secret.Data["password"])
-	fmt.Printf("dbURL: %v", dbURL)
+	logger.Println("username: ")
+	logger.Println("    ", secret.Data["username"])
+	logger.Println("password: ")
+	logger.Println("    ", secret.Data["password"])
+	logger.Println("dbURL: ")
+	logger.Println("    ", dbURL)
 
 	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/lambdadb", secret.Data["username"], secret.Data["password"], dbURL)
 	db, err := sql.Open("mysql", connStr)

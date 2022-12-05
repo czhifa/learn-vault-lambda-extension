@@ -176,7 +176,7 @@ vault write database/config/mysql \
   allowed_roles="lambda-*" \
   connection_url="{{username}}:{{password}}@tcp(${tpl_rds_endpoint}:3306)/lambdadb" \
   username="vaultadmin" \
-  password="${tpl_rds_admin_password}"
+  password="vaultpass"
 
 
 # WARNING: Creating credentials this way eventually will max out the table

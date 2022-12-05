@@ -73,28 +73,28 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	logger.Println("dbURL: ")
 	logger.Println("    ", dbURL)
 
-	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/mysql", secret.Data["username"], secret.Data["password"], dbURL)
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/lambdadb", secret.Data["username"], secret.Data["password"], dbURL)
 	db, err := sql.Open("mysql", connStr)
 	if err != nil {
 		return err
 	}
 
-	var users []string
-	rows, err := db.QueryContext(ctx, "SELECT user FROM user")
+	var titles []string
+	rows, err := db.QueryContext(ctx, "SELECT title FROM article")
 	if err != nil {
 		return err
 	}
 	defer rows.Close()
 	for rows.Next() {
-		var user string
-		if err = rows.Scan(&user); err != nil {
+		var title string
+		if err = rows.Scan(&title); err != nil {
 			return err
 		}
-		users = append(users, user)
+		titles = append(titles, title)
 	}
-	logger.Println("users: ")
-	for i := range users {
-		logger.Println("    ", users[i])
+	logger.Println("titles: ")
+	for i := range titles {
+		logger.Println("    ", titles[i])
 	}
 
 	return nil

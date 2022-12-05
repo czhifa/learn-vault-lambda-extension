@@ -9,7 +9,7 @@ resource "aws_db_instance" "main" {
   engine                 = "mysql"
   engine_version         = "5.7"
   instance_class         = var.db_instance_type
-  db_name                = "mysql"
+  db_name                = "lambdadb"
   username               = "vaultadmin"
   password               = "vaultpass"
   vpc_security_group_ids = [aws_security_group.rds.id]

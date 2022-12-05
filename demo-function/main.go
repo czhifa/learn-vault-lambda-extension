@@ -15,7 +15,7 @@ import (
 
 	"database/sql"
 
-	_ "github.com/lib/pq"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const functionName = "demo-function"

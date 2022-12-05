@@ -11,7 +11,7 @@ resource "aws_db_instance" "main" {
   instance_class         = var.db_instance_type
   db_name                = "lambdadb"
   username               = "vaultadmin"
-  password               = random_password.password.result
+  password               = "vaultpass"
   vpc_security_group_ids = [aws_security_group.rds.id]
   skip_final_snapshot    = true
   publicly_accessible    = true

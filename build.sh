@@ -10,7 +10,7 @@ rm -f bin/main 2> /dev/null
 rm -f demo-function.zip 2> /dev/null
 
 echo "Build function..."
-GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' -a -o bin/main main.go
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '-s -w' -a -o bin/main main.go
 
 echo
 

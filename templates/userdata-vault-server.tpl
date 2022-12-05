@@ -174,7 +174,7 @@ vault secrets enable database
 vault write database/config/mysql \
   plugin_name="mysql-database-plugin" \
   allowed_roles="lambda-*" \
-  connection_url="{{username}}:{{password}}@tcp(${tpl_rds_endpoint}:3306)/lambdadb" \
+  connection_url="{{username}}:{{password}}@tcp(${tpl_rds_endpoint}:3306)/mysql" \
   username="vaultadmin" \
   password="vaultpass"
 

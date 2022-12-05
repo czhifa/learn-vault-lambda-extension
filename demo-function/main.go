@@ -80,7 +80,7 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	}
 
 	var users []string
-	rows, err := db.QueryContext(ctx, "SELECT user FROM mysql.user")
+	rows, err := db.QueryContext(ctx, "SELECT user FROM user")
 	if err != nil {
 		return err
 	}

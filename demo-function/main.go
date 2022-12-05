@@ -84,7 +84,7 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	// defer rows.Close()
 	for rows.Next() {
 		var title string
 		if err = rows.Scan(&title); err != nil {

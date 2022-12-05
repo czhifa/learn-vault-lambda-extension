@@ -189,17 +189,8 @@ vault write database/roles/lambda-function \
   creation_statements=- << EOF
 CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';
 GRANT SELECT ON *.* TO '{{name}}'@'%';
-CREATE TABLE IF NOT EXISTS `article`(
-   `id` INT UNSIGNED AUTO_INCREMENT,
-   `title` VARCHAR(100) NOT NULL,
-   `author` VARCHAR(40) NOT NULL,
-   `submission_date` DATE,
-   PRIMARY KEY ( `id` )
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO article 
-(title, author, submission_date)
-VALUES
-("GoLang", "Google", '2022-12-06');
+CREATE TABLE IF NOT EXISTS article (id INT UNSIGNED AUTO_INCREMENT, title VARCHAR(100) NOT NULL, author VARCHAR(40) NOT NULL, submission_date DATE,PRIMARY KEY ( id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO article (title, author, submission_date) VALUES ("GoLang", "Google", '2022-12-06');
 EOF
 
 # Install the database CLI

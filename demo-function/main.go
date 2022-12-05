@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,8 +13,6 @@ import (
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/hashicorp/vault/api"
-
-	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -74,7 +73,7 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	logger.Println("dbURL: ")
 	logger.Println("    ", dbURL)
 
-	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/lambdadb", secret.Data["username"], secret.Data["password"], dbURL)
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/mysql", secret.Data["username"], secret.Data["password"], dbURL)
 	db, err := sql.Open("mysql", connStr)
 	if err != nil {
 		return err
@@ -101,6 +100,38 @@ func HandleRequest(ctx context.Context, payload Payload) error {
 	return nil
 }
 
+// func callQuery() error {
+// 	logger := log.New(os.Stderr, fmt.Sprintf("[%s] ", functionName), 0)
+
+// 	connStr := fmt.Sprintf("%s:%s@tcp(%s:3306)/mysql", "root", "rootpassword", "127.0.0.1")
+// 	db, err := sql.Open("mysql", connStr)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	var users []string
+// 	//rows, err := db.QueryContext(ctx, "SELECT user FROM mysql.user")
+// 	rows, err := db.Query("select user from mysql.user")
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer rows.Close()
+// 	for rows.Next() {
+// 		var user string
+// 		if err = rows.Scan(&user); err != nil {
+// 			return err
+// 		}
+// 		users = append(users, user)
+// 	}
+// 	logger.Println("users: ")
+// 	for i := range users {
+// 		logger.Println("    ", users[i])
+// 	}
+
+// 	return nil
+// }
+
 func main() {
+	//callQuery()
 	lambda.Start(HandleRequest)
 }

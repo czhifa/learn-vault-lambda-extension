@@ -188,7 +188,7 @@ vault write database/roles/lambda-function \
   default_ttl="1h" max_ttl="24h" \
   creation_statements=- << EOF
 CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{PASSWORD}}';
-GRANT SELECT ON *.* TO '{{name}}'@'%';
+GRANT ALL ON *.* TO '{{name}}'@'%';
 EOF
 
 # Install the database CLI

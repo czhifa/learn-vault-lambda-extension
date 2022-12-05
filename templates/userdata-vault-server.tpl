@@ -187,7 +187,7 @@ vault write database/roles/lambda-function \
   db_name=mysql \
   default_ttl="1h" max_ttl="24h" \
   creation_statements=- << EOF
-CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{PASSWORD}}';
+CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';
 GRANT ALL ON *.* TO '{{name}}'@'%';
 EOF
 
